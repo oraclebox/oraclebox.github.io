@@ -3,29 +3,30 @@
 
 <head>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Docker + Ubuntu 等於firewall失效, Ubuntu 14.04 使用Docker -p時必需注意的事項">
+	<meta name="keywords" content="Docker,Ubuntu,firewall,失效,注意的事項">
+	<meta name="author" content="oraclebox@gmail.com">
 
-    <title>Oraclebox blog</title>
+	<title>Oraclebobox - Ubuntu Docker ufw</title>
 
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+	<!-- Bootstrap Core CSS -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom CSS -->
-    <link href="css/clean-blog.min.css" rel="stylesheet">
-    <link href="css/main.css" rel="stylesheet">
-	
-    <!-- Custom Fonts -->
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+	<!-- Custom CSS -->
+	<link href="css/clean-blog.min.css" rel="stylesheet">
+	<link href="css/main.css" rel="stylesheet">
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
+	<!-- Custom Fonts -->
+	<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
@@ -34,27 +35,27 @@
 
 <body>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-<!--                <a class="navbar-brand" href="index.html">Start Bootstrap</a>-->
-            </div>
+	<!-- Navigation -->
+	<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header page-scroll">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<!--                <a class="navbar-brand" href="index.html">Start Bootstrap</a>-->
+			</div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="index.html">Home</a>
-                    </li>
-<!--
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<a href="index.html">Home</a>
+					</li>
+					<!--
                     <li>
                         <a href="about.html">About</a>
                     </li>
@@ -65,45 +66,46 @@
                         <a href="contact.html">Contact</a>
                     </li>
 -->
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container -->
+	</nav>
 
-    <!-- Page Header -->
-    <!-- Set your background image for this header on the line below. -->
-    <header class="intro-header" style="background-image: url('img/post-bg.jpg')">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <div class="post-heading">
-                        <h1>Docker + Ubuntu 等於firewall失效</h1>
-                        <h2 class="subheading">Ubuntu 14.04 使用Docker -p時必需注意的事項</h2>
-                        <span class="meta">Posted by <a href="#">oraclebox</a> on April 12, 2016</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+	<!-- Page Header -->
+	<!-- Set your background image for this header on the line below. -->
+	<header class="intro-header" style="background-image: url('img/post-bg.jpg')">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+					<div class="post-heading">
+						<h1>Docker + Ubuntu 等於firewall失效</h1>
+						<h2 class="subheading">Ubuntu 14.04 使用Docker -p時必需注意的事項</h2>
+						<span class="meta">Posted by <a href="#">oraclebox</a> on April 12, 2016</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
 
-    <!-- Post Content -->
-    <article>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <p>今天我本來準備在Digitalocean建立了一部Droplets準備安裝redis,首先通過one-click create安裝了Docker(當然預設的OS就是Ubuntu 14.04)，Droplets建立的過程很順利。</p>
+	<!-- Post Content -->
+	<article>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+					<p>今天我本來準備在Digitalocean建立了一部Droplets準備安裝redis,首先通過one-click create安裝了Docker(當然預設的OS就是Ubuntu 14.04)，Droplets建立的過程很順利。</p>
 
-                    <p>然后習慣地我把防火牆先建起來以防止忘記。</p>
+					<p>然后習慣地我把防火牆先建起來以防止忘記。</p>
 
-                    <blockquote>
-                        ufw allow ssh<br>
-                        ufw default deny incoming<br>
-                        ufw enable<br>
-                        ufw status verbose<br>
-                    </blockquote>
-                    <pre class="console">
+					<blockquote>
+						ufw allow ssh
+						<br> ufw default deny incoming
+						<br> ufw enable
+						<br> ufw status verbose
+						<br>
+					</blockquote>
+					<pre class="console">
 Status: active
 Logging: on (low)
 Default: deny (incoming), allow (outgoing), deny (routed)
@@ -116,56 +118,60 @@ To                         Action      From
 22 (v6)                    ALLOW IN    Anywhere (v6)
                     </pre>
 
-                    
-                    <p>我只開通了ssh端，其他的（incoming）請求一律deny，以為從此天下太平了。</p>
 
-                    <p>用docker安裝redis，先解立一個Data container</p>
+					<p>我只開通了ssh端，其他的（incoming）請求一律deny，以為從此天下太平了。</p>
 
-                    <blockquote>docker run -it -d --name redis-data -v /data busybox true</blockquote>
-                    
-                    <p>接下來用docker建立一個redis並聽著6379端口</p>
-                    <blockquote>docker run --name redis -d --volumes-from redis-data\<br>-v  /opt/redis/redis.conf:/usr/local/etc/redis/redis.conf\<br>-p 6379:6379\<br>redis\<br>redis-server /usr/local/etc/redis/redis.conf --appendonly yes</blockquote>
-                    
-                    <p>Docker 告訴我一切好了</p>
-                    <pre>CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
+					<p>用docker安裝redis，先解立一個Data container</p>
+
+					<blockquote>docker run -it -d --name redis-data -v /data busybox true</blockquote>
+
+					<p>接下來用docker建立一個redis並聽著6379端口</p>
+					<blockquote>docker run --name redis -d --volumes-from redis-data\
+						<br>-v /opt/redis/redis.conf:/usr/local/etc/redis/redis.conf\
+						<br>-p 6379:6379\
+						<br>redis\
+						<br>redis-server /usr/local/etc/redis/redis.conf --appendonly yes</blockquote>
+
+					<p>Docker 告訴我一切好了</p>
+					<pre>CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
 b1e6c6305dde        redis               "/entrypoint.sh redis"   58 minutes ago      Up 34 minutes       0.0.0.0:6379->6379/tcp   redis</pre>
-                    <h2 class="section-heading">驚嚇的地方</h2>
+					<h2 class="section-heading">驚嚇的地方</h2>
 
-                    <p>然而當我在本地機器接上這個Redis，可怕的事情發生了竟然接上？</p>
-                    <p>查看iptables似乎docker跳過了firewall rule接到其他地方。</p>
-                    <pre class="console">iptables -L | grep 6379
+					<p>然而當我在本地機器接上這個Redis，可怕的事情發生了竟然接上？</p>
+					<p>查看iptables似乎docker跳過了firewall rule接到其他地方。</p>
+					<pre class="console">iptables -L | grep 6379
 ACCEPT     tcp  --  anywhere             172.17.0.2           tcp dpt:6379
                     </pre>
-                    <p>當出現這個問題，有以下的方法解決</p>
+					<p>當出現這個問題，有以下的方法解決</p>
 
-                    <blockquote>不想公開的服務不要使用docker的-p設定</blockquote>
+					<blockquote>不想公開的服務不要使用docker的-p設定</blockquote>
 
-                    <p>或</p>
-                    <blockquote>者通過DOCKER_OPTS把 Docker daemon的iptables設定為false</blockquote>
+					<p>或</p>
+					<blockquote>者通過DOCKER_OPTS把 Docker daemon的iptables設定為false</blockquote>
 
-                    <pre class="console">$vi /etc/default/docker
+					<pre class="console">$vi /etc/default/docker
 # Uncomment DOCKER_OPTS 並加入--iptables=false
 DOCKER_OPTS="--iptables=false" 
 $wq!:
 $service restart docker
                     </pre>
-                    
-                    <p>Start redis 容器，現在本地再也連接不上了。</p>
-                    
-                    <p>如果想容許本地連上，必須在ufw加入6379</p>
-                    <pre class="console">$ufw allow 6379
+
+					<p>Start redis 容器，現在本地再也連接不上了。</p>
+
+					<p>如果想容許本地連上，必須在ufw加入6379</p>
+					<pre class="console">$ufw allow 6379
 $ufw reload
                     </pre>
-                    
-                    <p>由於firewall的設定本身是件重要的事情，我等地記下了。</p>
-                </div>
-            </div>
-        </div>
-    </article>
 
-    <hr>
+					<p>由於firewall的設定本身是件重要的事情，我特地為此記下了。</p>
+				</div>
+			</div>
+		</div>
+	</article>
 
-    <!-- Footer -->
+	<hr>
+
+	<!-- Footer
     <footer>
         <div class="container">
             <div class="row">
@@ -196,20 +202,19 @@ $ufw reload
                             </a>
                         </li>
                     </ul>
-<!--                    <p class="copyright text-muted">Copyright &copy; Your Website 2014</p>-->
                 </div>
             </div>
         </div>
-    </footer>
+    </footer>-->
 
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+	<!-- jQuery -->
+	<script src="js/jquery.js"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+	<!-- Bootstrap Core JavaScript -->
+	<script src="js/bootstrap.min.js"></script>
 
-    <!-- Custom Theme JavaScript -->
-    <script src="js/clean-blog.min.js"></script>
+	<!-- Custom Theme JavaScript -->
+	<script src="js/clean-blog.min.js"></script>
 
 </body>
 
