@@ -143,17 +143,17 @@ ACCEPT     tcp  --  anywhere             172.17.0.2           tcp dpt:6379
                     <blockquote>者通過DOCKER_OPTS把 Docker daemon的iptables設定為false</blockquote>
 
                     <pre>$vi /etc/default/docker
-                    # Uncomment DOCKER_OPTS 並加入--iptables=false
-                    DOCKER_OPTS="--iptables=false" 
-                    $wq!:
-                    $service restart docker
+# Uncomment DOCKER_OPTS 並加入--iptables=false
+DOCKER_OPTS="--iptables=false" 
+$wq!:
+$service restart docker
                     </pre>
                     
                     <p>Start redis 容器，現在本地再也連接不上了。</p>
                     
                     <p>如果想容許本地連上，必須在ufw加入6379</p>
                     <pre>$ufw allow 6379
-                    $ufw reload
+$ufw reload
                     </pre>
                     
                     <p>由於firewall的設定本身是件重要的事情，我等地記下了。</p>
