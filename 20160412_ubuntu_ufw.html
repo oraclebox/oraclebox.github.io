@@ -16,7 +16,8 @@
 
     <!-- Custom CSS -->
     <link href="css/clean-blog.min.css" rel="stylesheet">
-
+    <link href="css/main.css" rel="stylesheet">
+	
     <!-- Custom Fonts -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
@@ -102,7 +103,7 @@
                         ufw enable<br>
                         ufw status verbose<br>
                     </blockquote>
-                    <pre>
+                    <pre class="console">
 Status: active
 Logging: on (low)
 Default: deny (incoming), allow (outgoing), deny (routed)
@@ -132,7 +133,7 @@ b1e6c6305dde        redis               "/entrypoint.sh redis"   58 minutes ago 
 
                     <p>然而當我在本地機器接上這個Redis，可怕的事情發生了竟然接上？</p>
                     <p>查看iptables似乎docker跳過了firewall rule接到其他地方。</p>
-                    <pre>iptables -L | grep 6379
+                    <pre class="console">iptables -L | grep 6379
 ACCEPT     tcp  --  anywhere             172.17.0.2           tcp dpt:6379
                     </pre>
                     <p>當出現這個問題，有以下的方法解決</p>
@@ -142,7 +143,7 @@ ACCEPT     tcp  --  anywhere             172.17.0.2           tcp dpt:6379
                     <p>或</p>
                     <blockquote>者通過DOCKER_OPTS把 Docker daemon的iptables設定為false</blockquote>
 
-                    <pre>$vi /etc/default/docker
+                    <pre class="console">$vi /etc/default/docker
 # Uncomment DOCKER_OPTS 並加入--iptables=false
 DOCKER_OPTS="--iptables=false" 
 $wq!:
@@ -152,7 +153,7 @@ $service restart docker
                     <p>Start redis 容器，現在本地再也連接不上了。</p>
                     
                     <p>如果想容許本地連上，必須在ufw加入6379</p>
-                    <pre>$ufw allow 6379
+                    <pre class="console">$ufw allow 6379
 $ufw reload
                     </pre>
                     
