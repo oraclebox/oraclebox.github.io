@@ -8,3 +8,8 @@
 .paragraph{
     font-size: 125%;
 }
+.console{
+	background-color: #253261;
+    color: #eeeeee;
+    border: none !important;
+}
